@@ -11,14 +11,13 @@ export const useTodoState = () => {
             todosState = await todoApi.readTodos();
         },
         add: async (todo) => {
-            todo.done === "on" ? todo.done = true : todo.done = false;
+            todo.done = todo.done === "on";
             const result = await todoApi.create(todo);
-            if ("successs" in result) return;
+            if ("success" in result) return {"error": result.error.issues[0].message};
             todosState.push(result);
         },
         update: async (id) => {
             const result = await todoApi.update(id);
-            if ("successs" in result) return;
             const foundTodo = todosState.find(t => t.id === id);
             foundTodo.done = !foundTodo.done; 
         },

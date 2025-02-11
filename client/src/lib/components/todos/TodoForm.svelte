@@ -1,11 +1,14 @@
 <script>
   import { useTodoState } from "$lib/states/todoState.svelte";
 
+    let error = $state("");
     const todoState = useTodoState();
 
-    const addTodo = (e) => {
+    const addTodo = async (e) => {
         const todo = Object.fromEntries(new FormData(e.target));
-        todoState.add(todo);
+        const result = await todoState.add(todo);
+        if (result) error = result.error;
+        else error = "";
         e.target.reset();
         e.preventDefault();
     };
@@ -14,6 +17,12 @@
 <br/>
 
 <form  class="mx-auto w-full max-w-md space-y-4" onsubmit={addTodo}>
+    {#if error}
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <span class="font-medium">{error}</span> 
+        </div>
+    {/if}
+
     <label for="name" class="label">
         <span class="label-text">Todo name:</span >
         <input class="input" id="name" name="name" type="text" placeholder="Enter name..." />

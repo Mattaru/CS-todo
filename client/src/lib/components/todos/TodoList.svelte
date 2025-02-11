@@ -7,7 +7,7 @@
     $effect(() => todoState.fetchTodos());
 </script>
 
-{#if todoState?.todos.length !== 0}
+{#if todoState.todos.length > 0}
     <ul class="space-y-4">
         {#each todoState.todos as todo}
             <li>
@@ -15,7 +15,6 @@
             </li>
         {/each}
     </ul>
-    
 {:else}
-    <p>The todos list is empty yet.</p>
+    <p>The todo list is empty yet.</p>
 {/if}
