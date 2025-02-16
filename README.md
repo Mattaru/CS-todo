@@ -6,15 +6,6 @@
 ### Working process:
 1. For run whole project in a docker container:
 ``` bash
-# Build container
-docker compose up --build -d
-```
-``` bash
-# Stop container
-docker compose stop
-```
-2. For work only with the client locally:
-``` bash
 # Go to the client folder
 cd client
 ```
@@ -23,20 +14,14 @@ cd client
 deno install --allow-scripts
 ```
 ``` bash
-# Run the client
-deno run dev --open
+# Go to the client folder
+cd ..
 ```
-### e2e tests:
-For run playwright test:
 ``` bash
-# Up the docker container
+# Build container
 docker compose up --build -d
 ```
 ``` bash
-# Run the tests
-docker compose run --rm --entrypoint=npx e2e-tests playwright test
-```
-``` bash
-# Stop the docker container
+# Stop container
 docker compose stop
 ```
